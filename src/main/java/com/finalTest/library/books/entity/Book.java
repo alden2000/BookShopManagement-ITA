@@ -31,16 +31,16 @@ public class Book {
 
     private String Author;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "genre_id", referencedColumnName = "id")
-    private Genre genre;
+    @OneToMany(cascade = CascadeType.ALL)
+    //@JoinColumn(name = "genre_id", referencedColumnName = "id")
+    private List<Genre> genre;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    //@JoinColumn(name = "language_id", referencedColumnName = "id")
+    private List<Language> language;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "language_id", referencedColumnName = "id")
-    private Language language;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "state_id", referencedColumnName = "id")
+    @JoinColumn(name = "state_id", referencedColumnName = "id", nullable = false)
     private State state;
 
     public Book() {
@@ -102,19 +102,19 @@ public class Book {
         Author = author;
     }
 
-    public Genre getGenreList() {
+    public List<Genre> getGenreList() {
         return genre;
     }
 
-    public void setGenreList(Genre genreList) {
+    public void setGenreList(List<Genre> genreList) {
         this.genre = genreList;
     }
 
-    public Language getLanguageList() {
+    public List<Language> getLanguageList() {
         return language;
     }
 
-    public void setLanguageList(Language language) {
+    public void setLanguageList(List<Language> language) {
         this.language = language;
     }
 
@@ -149,6 +149,9 @@ public class Book {
                 ", inStock=" + inStock +
                 ", price=" + price +
                 ", Author='" + Author + '\'' +
+                ", genre=" + genre +
+                ", language=" + language +
+                ", state=" + state +
                 '}';
     }
 }

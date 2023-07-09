@@ -1,9 +1,6 @@
 package com.finalTest.library.genres.entity;
 
-import com.finalTest.library.books.entity.Book;
-
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -18,9 +15,9 @@ public class Genre {
     @Basic(optional = false)
     private String name;
 
-    @OneToOne(mappedBy = "genre")
+//    @OneToOne(mappedBy = "genre")
 //    @JoinColumn(name = "books", referencedColumnName = "id")
-    private Book book;
+//    private Book book;
 
     public Genre() {
     }
@@ -41,13 +38,13 @@ public class Genre {
         this.name = name;
     }
 
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
-    }
+//    public Book getBook() {
+//        return book;
+//    }
+//
+//    public void setBook(Book book) {
+//        this.book = book;
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -64,10 +61,6 @@ public class Genre {
 
     @Override
     public String toString() {
-        return "Genre{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", book=" + book +
-                '}';
+        return name;
     }
 }

@@ -57,6 +57,7 @@ public class UserController {
             userService.saveUser(user);
             return "redirect:/";
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return "redirect:/register?error=Bad registration";
         }
     }

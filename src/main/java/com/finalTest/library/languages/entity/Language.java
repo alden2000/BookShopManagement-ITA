@@ -1,7 +1,5 @@
 package com.finalTest.library.languages.entity;
 
-import com.finalTest.library.books.entity.Book;
-
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -14,8 +12,9 @@ public class Language {
 
     @Basic(optional = false)
     private String name;
-    @OneToOne(mappedBy = "language")
-    private Book book;
+
+//    @OneToOne(mappedBy = "language")
+//    private Book book;
 
     public Language() {
     }
@@ -36,13 +35,13 @@ public class Language {
         this.name = name;
     }
 
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
-    }
+//    public Book getBook() {
+//        return book;
+//    }
+//
+//    public void setBook(Book book) {
+//        this.book = book;
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -59,9 +58,6 @@ public class Language {
 
     @Override
     public String toString() {
-        return "Language{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return name;
     }
 }
