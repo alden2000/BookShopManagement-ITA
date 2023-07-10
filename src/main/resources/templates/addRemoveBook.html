@@ -9,7 +9,36 @@
         crossorigin="anonymous">
 </head>
 <body>
-<a type="button" class="btn btn-success" th:href="@{/addBook}">Add Book</a>
-<a type="button" class="btn btn-danger" th:href="@{/removeBook}">Remove Book</a>
+<h1 class="display-1" style="margin: 2%">Books management</h1>
+
+<table class="table" style="margin: 2%">
+    <thead>
+    <tr class="table-info">
+        <th>Primary Title</th>
+        <th>Title</th>
+        <th>author</th>
+        <th>price</th>
+        <th>inStock</th>
+        <!--    <th>Genre</th>-->
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book:${book}">
+        <td class="table-info" th:text="${book.getPrimaryTitle()}"></td>
+        <td class="table-info" th:text="${book.getTitle()}"></td>
+        <td class="table-info" th:text="${book.getAuthor()}"></td>
+        <td class="table-info" th:text="${book.getPrice()}"></td>
+        <td class="table-info" th:text="${book.getInStock()}"></td>
+        <!--    <td class="table-info" th:text="${book.getGenreList()}"></td>-->
+        <td  class="table-info"><form th:action="@{/deleteBook(id=${book})}" method="get">
+            <input type="submit" value="Delete" class="btn btn-danger">
+        </form></td>
+    </tr>
+    </tbody>
+</table>
+<div class="d-grid gap-2 col-6 mx-auto" >
+<a type="button" class="btn btn-success" th:href="@{/addBook}" style="margin-right: 40%; margin-left: 40%">Add Book</a>
+    </div>
 </body>
 </html>

@@ -33,7 +33,9 @@ public class BookController {
     StateService stateService;
 
     @GetMapping("/addRemoveBook")
-    public String addRemoveBook(){
+    public String addRemoveBook(Model model){
+        List<Book> books = bookSercice.getAllBooks();
+        model.addAttribute("book", books);
         return "addRemoveBook";
     }
 
@@ -57,12 +59,12 @@ public class BookController {
         return "redirect:/";
     }
 
-    @GetMapping("/removeBook")
-    public String removeBook(Model model){
-        List<Book> books = bookSercice.getAllBooks();
-        model.addAttribute("book", books);
-        return "removeBook";
-    }
+//    @GetMapping("/removeBook")
+//    public String removeBook(Model model){
+//        List<Book> books = bookSercice.getAllBooks();
+//        model.addAttribute("book", books);
+//        return "removeBook";
+//    }
 
     @GetMapping("/deleteBook")
     public String deletePerson(@RequestParam(value = "id") Book id) {
