@@ -7,11 +7,24 @@
           rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous">
+    <style>
+        .blink {
+            animation: blinker 1.5s linear infinite;
+            color: yellow;
+            font-family: sans-serif;
+        }
+        @keyframes blinker {
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+
 </head>
-<body>
+<body style="background: #00003f">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Library</a>
+        <a class="navbar-brand" href="#">BookShop</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -21,7 +34,7 @@
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Books</a>
+                    <a class="nav-link" th:href="@{/books}">Books</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">About us</a>
@@ -30,7 +43,7 @@
                     <a class="nav-link" th:href="@{/addRemoveBook}">Add/remove Books</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Add/remove Users</a>
+                    <a class="nav-link" th:href="@{/addRemoveUser}">Add/remove Users</a>
                 </li>
             </ul>
 
@@ -40,5 +53,9 @@
         </div>
     </div>
 </nav>
+<h3 style="text-align: center; margin: 2%" class="blink">Check this out!!!</h3>
+<div th:each="randomBook:${randomBooks}" style="display: inline-block; margin: 9%">
+    <a th:href="@{/books}"><img th:src="*{randomBook.getImgUrl()}" alt="@{upss}" width="200" height="300"></a>
+</div>
 </body>
 </html>

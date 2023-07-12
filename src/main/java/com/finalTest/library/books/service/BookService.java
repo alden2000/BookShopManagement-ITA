@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class BookSercice {
+public class BookService {
     @Autowired
     BookRepository bookRepository;
 
@@ -22,5 +22,8 @@ public class BookSercice {
 
     public void deleteBook(Long id){
         bookRepository.deleteById(id);
+    }
+    public void updateBook(Book book){
+        bookRepository.save(book);
     }
 }

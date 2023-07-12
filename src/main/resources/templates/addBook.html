@@ -33,24 +33,28 @@
   </div>
   <div class="mb-3">
     <label for="year" class="form-label">year:</label>
-    <input type="number" class="form-control" id="year" placeholder="Enter year" name="year" th:field="*{yearOfRelease}">
+    <input type="text" class="form-control" id="year" placeholder="Enter year" name="year" th:field="*{yearOfRelease}">
+  </div>
+  <div class="mb-3">
+    <label for="img" class="form-label">Image:</label>
+    <input type="text" class="form-control" id="img" placeholder="Enter Url" name="img" th:field="*{imgUrl}">
   </div>
   <div class="mb-3">
     <label for="language" class="form-label">language:</label>
     <select name="language" id="language" class="form-select" th:field="*{languageList}">
-      <option th:each="option : ${languageOptions}" th:value="${option.id}" th:text="${option}" id="languageOptions"></option>
+      <option th:each="option : ${languageOptions}" th:value="${option.id}" th:text="${option.getName}" id="languageOptions"></option>
     </select>
   </div>
   <div class="mb-3">
     <label for="genre" class="form-label">genre:</label>
     <select name="genre" id="genre" class="form-select" th:field="*{genreList}">
-      <option th:each="option : ${genreOptions}" th:value="${option.id}" th:text="${option}" id="genres"></option>
+      <option th:each="option : ${genreOptions}" th:value="${option.getId()}" th:text="${option.getName}" id="genreOptions"></option>
     </select>
   </div>
   <div class="mb-3">
     <label for="state" class="form-label">state:</label>
     <select name="state" id="state" class="form-select" th:field="*{state}">
-      <option th:each="option : ${stateOptions}" th:value="${option.id}" th:text="${option}" id="states"></option>
+      <option th:each="option : ${stateOptions}" th:value="${option.id}" th:text="${option.getName}" id="states"></option>
     </select>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>

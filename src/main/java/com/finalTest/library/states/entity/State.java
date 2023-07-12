@@ -3,6 +3,7 @@ package com.finalTest.library.states.entity;
 import com.finalTest.library.books.entity.Book;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -15,8 +16,8 @@ public class State {
     @Basic(optional = false)
     private String name;
 
-    @OneToOne(mappedBy = "state")
-    private Book book;
+    @OneToMany(mappedBy = "state")
+    private List<Book> book;
 
     public State() {
     }
@@ -37,11 +38,11 @@ public class State {
         this.name = name;
     }
 
-    public Book getBook() {
+    public List<Book> getBook() {
         return book;
     }
 
-    public void setBook(Book book) {
+    public void setBook(List<Book> book) {
         this.book = book;
     }
 
@@ -60,6 +61,13 @@ public class State {
 
     @Override
     public String toString() {
-        return name;
+        return name + "i" + id;
+    }
+
+    public State splitStateString(String toString){
+        String[] arrayOfString = toString.split("i");
+        setName(arrayOfString[0]);
+        setId((long) Integer.parseInt(arrayOfString[1]));
+        return this;
     }
 }

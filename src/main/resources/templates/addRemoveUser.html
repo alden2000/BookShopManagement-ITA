@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Users</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">BookShop</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/addRemoveBook}">Add/remove Books</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/addRemoveUser}">Advanced</a>
+                </li>
+            </ul>
+
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a class="btn btn-outline-danger" th:href="@{/logout}" role="button">Logout</a>
+        </div>
+    </div>
+</nav>
+<h1 class="display-1" style="margin: 2%">Users management</h1>
+
+<table class="table" style="margin: 2%">
+    <thead>
+    <tr class="table-info">
+        <th>Primary Title</th>
+        <th>Title</th>
+        <th>author</th>
+        <th>price</th>
+        <th>inStock</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user:${user}">
+        <form th:action="@{/updateUser}" method="get">
+            <!--        <td class="table-info" contenteditable="true" th:text="${book.getPrimaryTitle()}"></td>-->
+            <!--        <td class="table-info" contenteditable="true" th:text="${book.getTitle()}"></td>-->
+            <!--        <td class="table-info" contenteditable="true" th:text="${book.getAuthor()}"></td>-->
+            <!--        <td class="table-info" contenteditable="true" th:text="${book.getPrice()}"></td>-->
+            <!--        <td class="table-info" contenteditable="true" th:text="${book.getInStock()}"></td>-->
+            <td class="table-info">
+                <input type="text" name="name" th:value="*{user.getName()}"></td>
+            <td class="table-info">
+                <input type="text" name="surname" th:value="*{user.getSurname()}">
+            </td>
+            <td class="table-info">
+                <input type="text" name="username" th:value="*{user.getUsername()}">
+            </td>
+            <td class="table-info">
+                <input type="text" name="email" th:value="*{user.getEmail()}"></td>
+            <td class="table-info">
+                <input type="text" name="role" th:value="*{user.getPrivilege().getName()}">
+            </td>
+            <!--    <td class="table-info" th:text="${book.getGenreList()}"></td>-->
+            <td class="table-info">
+                <!--            <form th:action="@{/updateBook}" method="get">-->
+                <input type="hidden" name="userId" th:value="*{user.getId()}">
+                <!--            <input type="hidden" name="bookPrimaryTitle" th:value="*{book.getPrimaryTitle()}">-->
+                <!--            <input type="hidden" name="bookTitle" th:value="*{book.getTitle()}">-->
+                <!--            <input type="hidden" name="bookAuthor" th:value="*{book.getAuthor()}">-->
+                <!--            <input type="hidden" name="bookPrice" th:value="*{book.getPrice()}">-->
+                <!--            <input type="hidden" name="bookInStock" th:value="*{book.getInStock()}">-->
+                <input type="hidden" name="userRole" th:value="*{user.getPrivilege()}">
+                <input type="hidden" name="userRoleId" th:value="*{user.getPrivilege().id}">
+                <!--            <input type="text" name="book" th:value="*{book.id}">-->
+                <input type="submit" value="Update" class="btn btn-success">
+            </td>
+        </form>
+    </tr>
+    </tbody>
+</table>
+<div class="d-grid gap-2 col-6 mx-auto">
+    <a type="button" class="btn btn-success" th:href="@{/addUser}" style="margin-right: 40%; margin-left: 40%">Add
+        User</a>
+</div>
+</body>
+</html>

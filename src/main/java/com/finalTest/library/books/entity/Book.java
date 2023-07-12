@@ -3,6 +3,9 @@ package com.finalTest.library.books.entity;
 import com.finalTest.library.genres.entity.Genre;
 import com.finalTest.library.languages.entity.Language;
 import com.finalTest.library.states.entity.State;
+import net.bytebuddy.asm.Advice;
+import net.bytebuddy.implementation.bind.MethodDelegationBinder;
+import net.bytebuddy.implementation.bind.annotation.AllArguments;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -24,26 +27,33 @@ public class Book {
     private String title;
     @Basic(optional = false)
     private Integer yearOfRelease;
-    @Basic(optional = false)
+    //@Basic(optional = false)
+    @Column(nullable = false)
     private Integer inStock;
     @Basic(optional = false)
     private BigDecimal price;
 
     private String Author;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    private String imgUrl;
+
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     //@JoinColumn(name = "genre_id", referencedColumnName = "id")
     private List<Genre> genre;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     //@JoinColumn(name = "language_id", referencedColumnName = "id")
     private List<Language> language;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "state_id", referencedColumnName = "id", nullable = false)
     private State state;
 
     public Book() {
+    }
+
+    public Book(BigDecimal price) {
+        this.price = price;
     }
 
     public Long getId() {
@@ -102,12 +112,20 @@ public class Book {
         Author = author;
     }
 
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
     public List<Genre> getGenreList() {
         return genre;
     }
 
-    public void setGenreList(List<Genre> genreList) {
-        this.genre = genreList;
+    public void setGenreList(List<Genre> genre) {
+        this.genre = genre;
     }
 
     public List<Language> getLanguageList() {
@@ -146,8 +164,8 @@ public class Book {
                 ", primaryTitle='" + primaryTitle + '\'' +
                 ", title='" + title + '\'' +
                 ", yearOfRelease=" + yearOfRelease +
-                ", inStock=" + inStock +
                 ", price=" + price +
+                ", inStock=" + inStock +
                 ", Author='" + Author + '\'' +
                 ", genre=" + genre +
                 ", language=" + language +

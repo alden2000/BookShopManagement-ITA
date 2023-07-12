@@ -8,8 +8,6 @@ import java.util.Objects;
 public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
     private Long id;
 
     @Basic(optional = false)
@@ -61,6 +59,9 @@ public class Genre {
 
     @Override
     public String toString() {
-        return name;
+        return "Genre{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

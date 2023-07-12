@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" th::href="@{/}">BookShop</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/addRemoveBook}">Add/remove Books</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/addRemoveUser}">Add/remove Users</a>
+                </li>
+            </ul>
+
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a class="btn btn-outline-danger" th:href="@{/logout}" role="button">Logout</a>
+        </div>
+    </div>
+</nav>
+<table class="table" style="margin-top: 2%">
+    <thead>
+    <tr class="table-info">
+        <th>Img</th>
+        <th>Primary title</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Price</th>
+        <th>In stock</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book:${book}">
+        <td style="width: 150px" class="table-info" ><img th:src="*{book.getImgUrl()}" alt="@{upss}" width="100" height="130"></td>
+        <td class="table-info" th:text="*{book.getPrimaryTitle()}"
+            style="text-align: center; vertical-align: middle"></td>
+        <td class="table-info" th:text="*{book.getTitle()}" style="text-align: center; vertical-align: middle"></td>
+        <td class="table-info" th:text="*{book.getAuthor()}" style="text-align: center; vertical-align: middle"></td>
+        <td class="table-info" th:text="*{book.getPrice()}" style="text-align: center; vertical-align: middle"></td>
+            <td class="table-info" th:text="*{book.getInStock()}" id="stock" style="text-align: center; vertical-align: middle"></td>
+            <td style="vertical-align: middle" class="table-info" >
+                <form th:action="@{/updateInStock}" method="get">
+                <input type="hidden" name="bookId" th:value="*{book.getId()}">
+                <input type="hidden" name="InStock" th:value="*{book.getInStock()}">
+                <input type="submit" value="Buy" class="btn btn-success">
+                </form>
+            </td>
+    </tbody>
+</table>
+<div style="margin-left: 10%">
+<ul style="display: inline-block;" class="pagination justify-content-center" th:if="${book.totalPages > 0}"
+    th:each="pageNumber : ${pageNumbers}" >
+    <li class="page-item">
+        <a th:href="@{/books(size=${book.size}, page=${pageNumber})}"
+           th:text="${pageNumber}"
+           class="page-link"></a>
+    </li>
+</ul>
+</div>
+</body>
+</html>
