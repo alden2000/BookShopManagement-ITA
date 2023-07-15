@@ -7,11 +7,49 @@
           rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous">
+    <style>
+        .naviBar{
+            color: #e2d3c4;
+        }
+        .naviBar:hover{
+            color: #a9a895;
+        }
+        tr{
+            background-color: #4f483f;
+        }
+        th{
+            color: white;
+        }
+        .add{
+            color: white;
+            border-color: #a5a58d;
+        }
+        .add:hover{
+            background-color: #a5a58d
+        }
+        .info{
+            color: white;
+        }
+        .pages{
+            text-align: center;
+            background-color: #4f483f;
+            color: white;
+            border-color: #897766;
+        }
+        .pages:hover{
+            background-color: #4f483f
+        }
+        .page-center{
+            margin: auto;
+            width: 50%;
+            padding: 10px;
+        }
+    </style>
 </head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<body style="background: #897766">
+<nav class="navbar navbar-expand-lg" style="background-color: #4f483f">
     <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/}">BookShop</a>
+        <a class="navbar-brand naviBar" th:href="@{/}">BookShop</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -19,10 +57,10 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">Home</a>
+                    <a class="nav-link naviBar" th:href="@{/}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About us</a>
+                    <a class="nav-link naviBar" th:href="@{/aboutUs}">About us</a>
                 </li>
             </ul>
 
@@ -34,7 +72,7 @@
 </nav>
 <table class="table" style="margin-top: 2%">
     <thead>
-    <tr class="table-info">
+    <tr class="info">
         <th>Img</th>
         <th>Title</th>
         <th>Language</th>
@@ -47,36 +85,36 @@
     </thead>
     <tbody>
     <tr th:each="book:${book}">
-        <td style="width: 150px" class="table-info" ><img th:src="*{book.getImgUrl()}" alt="upss" width="100" height="130"></td>
-        <td class="table-info"
+        <td style="width: 150px" class="info" ><img th:src="*{book.getImgUrl()}" alt="upss" width="100" height="130"></td>
+        <td class="info"
             style="text-align: center; vertical-align: middle">
             <p th:text="*{book.getPrimaryTitle()}"></p><br>
             <p th:text="*{book.getTitle()}"></p>
         </td>
-        <td class="table-info" th:each="language:${book.getLanguageList()}" th:text="*{language.getName()}" style="text-align: center; vertical-align: middle"></td>
-        <td class="table-info" th:text="*{book.getAuthor()}" style="text-align: center; vertical-align: middle"></td>
-        <td class="table-info" th:text="*{book.getState().getName()}" style="text-align: center; vertical-align: middle"></td>
-            <td class="table-info"  id="stock" style="text-align: center; vertical-align: middle">
+        <td class="info" th:each="language:${book.getLanguageList()}" th:text="*{language.getName()}" style="text-align: center; vertical-align: middle"></td>
+        <td class="info" th:text="*{book.getAuthor()}" style="text-align: center; vertical-align: middle"></td>
+        <td class="info" th:text="*{book.getState().getName()}" style="text-align: center; vertical-align: middle"></td>
+            <td class="info"  id="stock" style="text-align: center; vertical-align: middle">
                 <p th:text="*{book.getPrice()}">$</p>
                 <p th:text="*{book.getInStock()}"></p>
             </td>
-        <td class="table-info" th:each="genre:${book.getGenreList()}" th:text="*{genre.getName()}" style="text-align: center; vertical-align: middle"></td>
-            <td style="vertical-align: middle" class="table-info" >
+        <td class="info" th:each="genre:${book.getGenreList()}" th:text="*{genre.getName()}" style="text-align: center; vertical-align: middle"></td>
+            <td style="vertical-align: middle" class="info" >
                 <form th:action="@{/updateInStock}" method="get">
                 <input type="hidden" name="bookId" th:value="*{book.getId()}">
                 <input type="hidden" name="InStock" th:value="*{book.getInStock()}">
-                <input type="submit" value="Buy" class="btn btn-success">
+                <input type="submit" value="Buy" class="btn add">
                 </form>
             </td>
     </tbody>
 </table>
-<div style="margin-left: 10%">
-<ul style="display: inline-block;" class="pagination justify-content-center" th:if="${book.totalPages > 0}"
-    th:each="pageNumber : ${pageNumbers}" >
+<div class="page-center">
+<ul style="display: inline-block;" class="pagination center-content" th:if="${book.totalPages > 0}"
+    th:each="pageNumber : ${pageNumbers}">
     <li class="page-item">
         <a th:href="@{/books(size=${book.size}, page=${pageNumber})}"
            th:text="${pageNumber}"
-           class="page-link"></a>
+           class="page-link pages"></a>
     </li>
 </ul>
 </div>

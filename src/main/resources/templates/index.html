@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
@@ -10,7 +10,7 @@
     <style>
         .blink {
             animation: blinker 1.5s linear infinite;
-            color: yellow;
+            color: #4f483f;
             font-family: sans-serif;
         }
         @keyframes blinker {
@@ -18,32 +18,46 @@
                 opacity: 0;
             }
         }
+        .naviBar{
+            color: #e2d3c4;
+        }
+        .naviBar:hover{
+            color: #a9a895;
+        }
+        .book-border{
+            border-style: solid;
+            border-color: #4f483f;
+            padding: 1%;
+        }
+        .book-border:hover{
+            background-color: #4f483f;
+        }
     </style>
 
 </head>
-<body style="background: #00003f">
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<body style="background: #897766">
+<nav class="navbar navbar-expand-lg" style="background-color: #4f483f">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">BookShop</a>
+        <a class="navbar-brand naviBar" href="#">BookShop</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active naviBar" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/books}">Books</a>
+                    <a class="nav-link naviBar" th:href="@{/books}">Books</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About us</a>
+                    <a class="nav-link naviBar" th:href="@{/aboutUs}">About us</a>
                 </li>
-                <li class="nav-item" id="updateBook">
-                    <a class="nav-link" th:href="@{/admin/addRemoveBook}">Add/remove Books</a>
+                <li class="nav-item" id="updateBook" sec:authorize="hasAnyAuthority('ADMIN')">
+                    <a class="nav-link naviBar"  th:href="@{/admin/addRemoveBook}">Add/remove Books</a>
                 </li>
-                <li class="nav-item" id="updateUser">
-                    <a class="nav-link" th:href="@{/admin/addRemoveUser}">Add/remove Users</a>
+                <li class="nav-item" id="updateUser" sec:authorize="hasAnyAuthority('ADMIN')">
+                    <a class="nav-link naviBar" th:href="@{/admin/addRemoveUser}">Add/remove Users</a>
                 </li>
 
             </ul>
@@ -54,9 +68,12 @@
         </div>
     </div>
 </nav>
-<h3 style="text-align: center; margin: 2%" class="blink">Check this out!!!</h3>
-<div th:each="randomBook:${randomBooks}" style="display: inline-block; margin: 9%">
-    <a th:href="@{/books}"><img th:src="*{randomBook.getImgUrl()}" alt="upss" width="200" height="300"></a>
+<h3 style="text-align: center; margin-top: 8%" class="blink">Check this out!!!</h3>
+<div style="margin-left: 8%">
+<div th:each="randomBook:${randomBooks}" class="book-border" style="display: inline-block; margin-top: 4%;
+ margin-left: 9.5%">
+    <a th:href="@{/books}" style="padding: 2%"><img th:src="*{randomBook.getImgUrl()}" alt="upss" width="200" height="300"></a>
+</div>
 </div>
 </body>
 </html>

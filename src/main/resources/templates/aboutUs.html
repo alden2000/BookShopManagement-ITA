@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About us</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+    <style>
+        .naviBar{
+            color: #e2d3c4;
+        }
+        .naviBar:hover{
+            color: #a9a895;
+        }
+        #paragraph{
+            border-style: solid;
+            border-color: #4f483f;
+            margin-top: 5%;
+            margin-left: 15%;
+            margin-right: 15%;
+            padding: 2%;
+        }
+    </style>
+</head>
+<body style="background: #897766">
+<nav class="navbar navbar-expand-lg" style="background-color: #4f483f">
+    <div class="container-fluid">
+        <a class="navbar-brand naviBar" th:href="@{/}">BookShop</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active naviBar" aria-current="page" th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link naviBar" th:href="@{/books}">Books</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link naviBar" th:href="@{/aboutUs}">About us</a>
+                </li>
+            </ul>
+
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end" >
+            <a class="btn btn-outline-danger" th:href="@{/logout}" role="button">Logout</a>
+        </div>
+    </div>
+</nav>
+<h2></h2>
+<div id="paragraph">
+<p> Dear reader,<br>
+    welcome to our library where we hope you can find anything and everything you are looking for. In our collection of
+    classics and diamonds in disguise you are bound to discover books which suit your style. Check out the wonderland
+    of genres which will surpass your wildest dreams. Maybe pick up a fantasy book to experience sparks fly and castles crumbling
+    as you toss a coin to your Witcher or follow our brave Fellowship of the Ring all the way through the great war. If you're
+    more into horror and mystery, please don't hold back when it comes to the fearless works written by the infamous Edgar Allan Poe
+    or timeless classics such as Sherlock Holmes or the haunted story of Frankenstein. As for all the hopeless romantics out there,
+    don't worry, we know you all too well to let you down. Remember that love comes in all shapes and sizes when picking up your
+    next love story. Whether you're in the mood for a sad beautiful tragic or a prince on a white horse, we're here to make sure
+    you have the best day picking the books of your choice. And we bet you think about the books you would've, should've and could've
+    finished if only you had enough time and the those you wish you could begin again. All you have to do is stay and keep your eyes
+    open for discounts and restocks coming every seven to fifteen days. Call it what you want but we call it a deal!
+    Now, it's time to go and look through the labyrinth of options we have just for you!<br>
+</p>
+    <footer>
+        <p>Need any help: <a href="#">BookShop@gmail.com</a></p>
+    </footer>
+</div>
+</body>
+</html>

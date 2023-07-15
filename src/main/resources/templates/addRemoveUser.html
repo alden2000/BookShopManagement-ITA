@@ -7,11 +7,35 @@
           rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous">
+    <style>
+        .naviBar{
+            color: #e2d3c4;
+        }
+        .naviBar:hover{
+            color: #a9a895;
+        }
+        .heading{
+            color: #e2d3c4;
+        }
+        tr{
+            background-color: #4f483f;
+        }
+        th{
+            color: white;
+        }
+        .add{
+            color: white;
+            border-color: #a5a58d;
+        }
+        .add:hover{
+            background-color: #a5a58d
+        }
+    </style>
 </head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<body style="background: #897766">
+<nav class="navbar navbar-expand-lg" style="background-color: #4f483f">
     <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/}">BookShop</a>
+        <a class="navbar-brand naviBar" th:href="@{/}">BookShop</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -19,13 +43,10 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">Home</a>
+                    <a class="nav-link naviBar" th:href="@{/}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/admin/addRemoveBook}">Add/remove Books</a>
+                    <a class="nav-link naviBar" th:href="@{/admin/addRemoveBook}">Add/remove Books</a>
                 </li>
             </ul>
 
@@ -35,11 +56,11 @@
         </div>
     </div>
 </nav>
-<h1 class="display-1" style="margin: 2%">Users management</h1>
+<h1 class="display-1 heading" style="margin-left: 2%; margin-top: 4%">Users management</h1>
 
 <table class="table" style="margin: 2%">
     <thead>
-    <tr class="table-info">
+    <tr class="info">
         <th>Name</th>
         <th>Surname</th>
         <th>username</th>
@@ -51,28 +72,29 @@
     <tbody>
     <tr th:each="user:${user}">
         <form th:action="@{/admin/updateUser}" method="get">
-            <td class="table-info">
+            <td class="info">
                 <input type="text" name="name" th:value="*{user.getName()}"></td>
-            <td class="table-info">
+            <td class="info">
                 <input type="text" name="surname" th:value="*{user.getSurname()}">
             </td>
-            <td class="table-info">
+            <td class="info">
                 <input type="text" name="username" th:value="*{user.getUsername()}">
             </td>
-            <td class="table-info">
+            <td class="info">
                 <input type="text" name="email" th:value="*{user.getEmail()}"></td>
-            <td class="table-info" th:text="*{user.getPrivilege().getName()}"></td>
-            <td class="table-info">
+            <td class="info" th:text="*{user.getPrivilege().getName()}"></td>
+            <td class="info">
                 <input type="hidden" name="userId" th:value="*{user.getId()}">
                 <input type="hidden" name="userRoleId" th:value="*{user.getPrivilege().id}">
-                <input type="submit" value="Update" class="btn btn-success">
+                <input type="submit" value="Update" class="btn add">
             </td>
         </form>
     </tr>
     </tbody>
 </table>
 <div class="d-grid gap-2 col-6 mx-auto">
-    <a type="button" class="btn btn-success" th:href="@{/admin/addUser}" style="margin-right: 40%; margin-left: 40%">Add
+    <a type="button" class="btn add" th:href="@{/admin/addUser}" style="margin-right: 40%;
+    margin-left: 40%; margin-bottom: 2%">Add
         User</a>
 </div>
 </body>

@@ -7,13 +7,23 @@
           rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous">
+    <style>
+        .login{
+            color: #a5a58d;
+            border-style: solid;
+            border-color: #a5a58d;
+        }
+        .login:hover{
+            background-color: #a5a58d;
+        }
+    </style>
 </head>
-<body style="background: #00003f">
+<body style="background: #897766">
 <section class="vh-100 gradient-custom">
 <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-            <div class="card bg-dark text-white" style="border-radius: 1rem;">
+            <div class="card text-white" style="border-radius: 1rem; background-color: #4f483f">
                 <div class="card-body p-5 text-center">
                     <div class="mb-md-5 mt-md-4 pb-5">
 <!--                        <section class="h-100 gradient-form">-->
@@ -37,7 +47,7 @@
                                 <div class="invalid-feedback">Please fill out this field.</div>
 
                                 <div class="text-center pt-1 mb-5 pb-1">
-                                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
+                                    <button class="btn login btn-block fa-lg gradient-custom-2 mb-3"
                                             type="submit">
                                         Login
                                     </button>
@@ -46,7 +56,7 @@
                                 <div class="d-flex align-items-center justify-content-center pb-4">
                                     <p class="mb-0 me-2">Don't have an account ?</p>
                                     <div>
-                                        <a th:href="@{/register}" class="btn btn-link">Register</a>
+                                        <a th:href="@{/register}" class="btn login btn-link" style="border-color: #4f483f">Register</a>
                                     </div>
                                 </div>
 

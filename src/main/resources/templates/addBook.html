@@ -7,9 +7,27 @@
         rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
         crossorigin="anonymous">
+  <style>
+    .add{
+      padding: 2%;
+      margin-bottom: 2%;
+      color: #a5a58d;
+      border-style: solid;
+      border-color: #a5a58d;
+    }
+    .add:hover{
+      background-color: #a5a58d;
+    }
+  </style>
 </head>
-<body>
-<div style="margin-left: 35%; margin-right: 35%">
+<body style="background: #897766">
+<section class="vh-100 gradient-custom">
+<div class="container py-5 h-100">
+  <div class="row d-flex justify-content-center align-items-center h-100">
+    <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+<div class="card text-white" style="border-radius: 1rem; background-color: #4f483f; ">
+  <div class="card-body p-5 text-center">
+    <div class="mb-md-5 mt-md-4 pb-5">
 <form th:action="@{/admin/saveBook}" th:object="${book}" method="post">
   <div class="mb-3 mt-3">
     <label for="primaryTitle" class="form-label">Title:</label>
@@ -33,7 +51,7 @@
   </div>
   <div class="mb-3">
     <label for="year" class="form-label">year:</label>
-    <input type="text" class="form-control" id="year" placeholder="Enter year" name="year" th:field="*{yearOfRelease}">
+    <input type="number" class="form-control" id="year" placeholder="Enter year" name="year" th:field="*{yearOfRelease}">
   </div>
   <div class="mb-3">
     <label for="img" class="form-label">Image:</label>
@@ -57,8 +75,14 @@
       <option th:each="option : ${stateOptions}" th:value="${option.id}" th:text="${option.getName}" id="states"></option>
     </select>
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn add">Submit</button>
 </form>
 </div>
+  </div>
+</div>
+    </div>
+    </div>
+</div>
+</section>
 </body>
 </html>

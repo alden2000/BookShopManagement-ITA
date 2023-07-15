@@ -9,30 +9,50 @@
           crossorigin="anonymous">
     <style>
         .advanced{
+            padding: 3%;
             border-style: solid;
-            border-color: darkblue;
-            margin: 8%;
+            border-color: #4f483f;
+            margin: 6%;
             display: inline-block;
+        }
+        .advanced:hover{
+            background-color: #4f483f;
+        }
+        .naviBar{
+            color: #e2d3c4;
+        }
+        .naviBar:hover{
+            color: #a9a895;
+        }
+        h4{
+            color: #e2d3c4;
+        }
+        .add{
+            color: white;
+            border-color: #a5a58d;
+        }
+        .add:hover{
+            background-color: #a5a58d
         }
     </style>
 </head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<body style="background: #897766">
+<nav class="navbar navbar-expand-lg" style="background-color: #4f483f">
     <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/}">BookShop</a>
+        <a class="navbar-brand naviBar" th:href="@{/}">BookShop</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/}">Home</a>
+                    <a class="nav-link naviBar" th:href="@{/}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/admin/addRemoveBook}">Add/remove Books</a>
+                    <a class="nav-link naviBar" th:href="@{/admin/addRemoveBook}">Add/remove Books</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/admin/addRemoveUser}">Add/remove Users</a>
+                    <a class="nav-link naviBar" th:href="@{/admin/addRemoveUser}">Add/remove Users</a>
                 </li>
             </ul>
 
@@ -46,22 +66,22 @@
 <div class="advanced">
     <h4>Add Language</h4>
     <form th:action="@{/admin/saveLanguage}" th:object="${language}" method="post">
-        <input class="form-control" th:field="*{name}" placeholder="add language" type="text" name="language"><br>
-        <button class="btn btn-primary" type="submit">>> add <<</button>
+        <input class="form-control" th:field="*{name}" placeholder="add language" type="text" name="language" required><br>
+        <button class="btn add" type="submit">>> add <<</button>
     </form>
 </div>
 <div class="advanced">
     <h4>Add Genre</h4>
     <form th:action="@{/admin/saveGenre}" th:object="${genre}" method="post">
-        <input class="form-control" th:field="*{name}" placeholder="add genre" type="text" name="genre"><br>
-        <button class="btn btn-primary" type="submit">>> add <<</button>
+        <input class="form-control" th:field="*{name}" placeholder="add genre" type="text" name="genre" required><br>
+        <button class="btn add" type="submit">>> add <<</button>
     </form>
 </div>
 <div class="advanced">
     <h4>Add State</h4>
     <form th:action="@{/admin/saveState}" th:object="${state}" method="post">
-        <input class="form-control" th:field="*{name}" placeholder="add state" type="text" name="state"><br>
-        <button class="btn btn-primary" type="submit">>> add <<</button>
+        <input class="form-control" th:field="*{name}" placeholder="add state" type="text" name="state" required><br>
+        <button class="btn add" type="submit">>> add <<</button>
     </form>
 </div>
 </body>

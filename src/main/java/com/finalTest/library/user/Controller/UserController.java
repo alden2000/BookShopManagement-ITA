@@ -44,23 +44,22 @@ public class UserController {
         List<Book> bookList = bookService.getAllBooks();
         Random randomBook = new Random();
         List<Book> randomBooks = new ArrayList<>();
+        if(bookList.size()<3){
+            return "index";
+        }
         int randomBookIndex0;
         int randomBookIndex1;
         int randomBookIndex2;
         do {
-                randomBookIndex0 = randomBook.nextInt(bookList.size() - 1);
-                randomBookIndex1 = randomBook.nextInt(bookList.size() - 1);
-                randomBookIndex2 = randomBook.nextInt(bookList.size() - 1);
+                randomBookIndex0 = randomBook.nextInt(bookList.size());
+                randomBookIndex1 = randomBook.nextInt(bookList.size());
+                randomBookIndex2 = randomBook.nextInt(bookList.size());
 //            System.out.println(randomBookIndex0 + " " +randomBookIndex1 + " " + randomBookIndex2);
             }while (randomBookIndex0==randomBookIndex1 || randomBookIndex1==randomBookIndex2 || randomBookIndex0==randomBookIndex2);
         randomBooks.add(bookList.get(randomBookIndex0));
         randomBooks.add(bookList.get(randomBookIndex1));
         randomBooks.add(bookList.get(randomBookIndex2));
         model.addAttribute("randomBooks", randomBooks);
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        User user = (User)authentication.getPrincipal();
-//        String role=authentication.getName();
-//        if(role.equals("USER")) return "indexUser";
         return "index";
     }
 
@@ -148,5 +147,10 @@ public class UserController {
             System.out.println(e.getMessage());
             return "redirect:/admin/addRemoveUser?error=Bad update";
         }
+    }
+
+    @GetMapping("/aboutUs")
+    public String aboutUs(){
+        return "aboutUs";
     }
 }

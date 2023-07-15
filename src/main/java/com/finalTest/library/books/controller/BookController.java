@@ -95,7 +95,7 @@ public class BookController {
         return "redirect:/admin/addRemoveBook";
     }
     @GetMapping("/books")
-    public String loadBooks(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "3") int pageSize, Model model) {
+    public String loadBooks(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int pageSize, Model model) {
         Pageable pageable = PageRequest.of(page-1, pageSize);
         Page<Book> books = bookRepository.findAll(pageable);
         model.addAttribute("book", books);
