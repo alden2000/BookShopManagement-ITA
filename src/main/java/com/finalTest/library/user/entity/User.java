@@ -29,7 +29,7 @@ public class User {
     private String password;
 
     @JoinColumn(name = "privileges", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Privilege privilege;
 
     public User() {
@@ -115,4 +115,5 @@ public class User {
                 ", privilege=" + privilege +
                 '}';
     }
+
 }

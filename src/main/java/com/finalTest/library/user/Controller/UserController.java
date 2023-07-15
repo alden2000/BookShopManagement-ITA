@@ -9,6 +9,8 @@ import com.finalTest.library.user.entity.User;
 import com.finalTest.library.user.entity.UserRepository;
 import com.finalTest.library.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +40,7 @@ public class UserController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/")
-    public String getHome(Model model){
+    public String goHome(Model model){
         List<Book> bookList = bookService.getAllBooks();
         Random randomBook = new Random();
         List<Book> randomBooks = new ArrayList<>();
@@ -49,12 +51,16 @@ public class UserController {
                 randomBookIndex0 = randomBook.nextInt(bookList.size() - 1);
                 randomBookIndex1 = randomBook.nextInt(bookList.size() - 1);
                 randomBookIndex2 = randomBook.nextInt(bookList.size() - 1);
-            System.out.println(randomBookIndex0 + " " +randomBookIndex1 + " " + randomBookIndex2);
+//            System.out.println(randomBookIndex0 + " " +randomBookIndex1 + " " + randomBookIndex2);
             }while (randomBookIndex0==randomBookIndex1 || randomBookIndex1==randomBookIndex2 || randomBookIndex0==randomBookIndex2);
         randomBooks.add(bookList.get(randomBookIndex0));
         randomBooks.add(bookList.get(randomBookIndex1));
         randomBooks.add(bookList.get(randomBookIndex2));
         model.addAttribute("randomBooks", randomBooks);
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        User user = (User)authentication.getPrincipal();
+//        String role=authentication.getName();
+//        if(role.equals("USER")) return "indexUser";
         return "index";
     }
 
@@ -72,10 +78,14 @@ public class UserController {
     @PostMapping("/saveUser")
     public String saveUser(@ModelAttribute("user") User user){
         try {
+            List<User> userList = userService.getAllUsers();
+            for (User user1 : userList) {
+                if (user1.getUsername().equals(user.getUsername())) return "redirect:/register?error=Username already exists";
+            }
             String plainPassword = user.getPassword();
             String hashedPassword = bCryptPasswordEncoder.encode(plainPassword);
             user.setPassword(hashedPassword);
-            user.setPrivilege(privilegeService.getPrivilegeByName());
+            user.setPrivilege(privilegeService.getPrivilegeByName("USER"));
             userService.saveUser(user);
             return "redirect:/";
         } catch (Exception e) {
@@ -83,27 +93,29 @@ public class UserController {
             return "redirect:/register?error=Bad registration";
         }
     }
-    @GetMapping("/addRemoveUser")
+    @GetMapping("/admin/addRemoveUser")
     public String addRemoveUser(Model model){
         List<User> users = userService.getAllUsers();
         model.addAttribute("user", users);
+        List<Privilege> privileges = privilegeRepository.findAll();
+        model.addAttribute("privilege", privileges);
         return "addRemoveUser";
     }
-    @PostMapping("/saveAdminUser")
+    @PostMapping("/admin/saveAdminUser")
     public String saveAdminUser(@ModelAttribute("user") User user){
         try {
             String plainPassword = user.getPassword();
             String hashedPassword = bCryptPasswordEncoder.encode(plainPassword);
             user.setPassword(hashedPassword);
-            user.setPrivilege(privilegeService.getPrivilegeByName());
+            user.setPrivilege(privilegeService.getPrivilegeByName("ADMIN"));
             userService.saveUser(user);
-            return "redirect:/addRemoveUser";
+            return "redirect:/admin/addRemoveUser";
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return "redirect:/addRemoveUser?error=Bad registration";
+            return "redirect:/admin/addRemoveUser?error=Bad registration";
         }
     }
-    @GetMapping("/addUser")
+    @GetMapping("/admin/addUser")
     public String addUser(Model model, Model privilegeModel){
         User user = new User();
         List<Privilege> privileges = privilegeRepository.findAll();
@@ -112,7 +124,7 @@ public class UserController {
         return "addUser";
     }
 
-    @GetMapping("/updateUser")
+    @GetMapping("/admin/updateUser")
     public String updateUser(@ModelAttribute(value = "userRoleId") Long privilegeId,
                              @ModelAttribute(value = "name") String name,
                              @ModelAttribute(value = "surname") String surname,
@@ -123,20 +135,18 @@ public class UserController {
         try {
             User user = userRepository.getReferenceById(userId);
             Privilege privilege = privilegeRepository.getReferenceById(privilegeId);
-            String[] arrayOfString = userRole.split("i");
-            System.out.println(userRole);
-            privilege.setName(arrayOfString[1]);
-            privilege.setId((long) Integer.parseInt(arrayOfString[0]));
+            System.out.println(userRole + " " + privilegeId);
+            privilege.setId(privilegeId);
             user.setPrivilege(privilege);
             user.setName(name);
             user.setSurname(surname);
             user.setUsername(username);
             user.setEmail(email);
             userService.saveUser(user);
-            return "redirect:/addRemoveUser";
+            return "redirect:/admin/addRemoveUser";
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return "redirect:/addRemoveUser?error=Bad update";
+            return "redirect:/admin/addRemoveUser?error=Bad update";
         }
     }
 }

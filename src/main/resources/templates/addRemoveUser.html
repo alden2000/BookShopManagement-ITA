@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Add Users</title>
@@ -25,10 +25,7 @@
                     <a class="nav-link" href="#">About us</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/addRemoveBook}">Add/remove Books</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/addRemoveUser}">Advanced</a>
+                    <a class="nav-link" th:href="@{/admin/addRemoveBook}">Add/remove Books</a>
                 </li>
             </ul>
 
@@ -43,22 +40,17 @@
 <table class="table" style="margin: 2%">
     <thead>
     <tr class="table-info">
-        <th>Primary Title</th>
-        <th>Title</th>
-        <th>author</th>
-        <th>price</th>
-        <th>inStock</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>username</th>
+        <th>email</th>
+        <th>role</th>
         <th>Action</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="user:${user}">
-        <form th:action="@{/updateUser}" method="get">
-            <!--        <td class="table-info" contenteditable="true" th:text="${book.getPrimaryTitle()}"></td>-->
-            <!--        <td class="table-info" contenteditable="true" th:text="${book.getTitle()}"></td>-->
-            <!--        <td class="table-info" contenteditable="true" th:text="${book.getAuthor()}"></td>-->
-            <!--        <td class="table-info" contenteditable="true" th:text="${book.getPrice()}"></td>-->
-            <!--        <td class="table-info" contenteditable="true" th:text="${book.getInStock()}"></td>-->
+        <form th:action="@{/admin/updateUser}" method="get">
             <td class="table-info">
                 <input type="text" name="name" th:value="*{user.getName()}"></td>
             <td class="table-info">
@@ -69,21 +61,10 @@
             </td>
             <td class="table-info">
                 <input type="text" name="email" th:value="*{user.getEmail()}"></td>
+            <td class="table-info" th:text="*{user.getPrivilege().getName()}"></td>
             <td class="table-info">
-                <input type="text" name="role" th:value="*{user.getPrivilege().getName()}">
-            </td>
-            <!--    <td class="table-info" th:text="${book.getGenreList()}"></td>-->
-            <td class="table-info">
-                <!--            <form th:action="@{/updateBook}" method="get">-->
                 <input type="hidden" name="userId" th:value="*{user.getId()}">
-                <!--            <input type="hidden" name="bookPrimaryTitle" th:value="*{book.getPrimaryTitle()}">-->
-                <!--            <input type="hidden" name="bookTitle" th:value="*{book.getTitle()}">-->
-                <!--            <input type="hidden" name="bookAuthor" th:value="*{book.getAuthor()}">-->
-                <!--            <input type="hidden" name="bookPrice" th:value="*{book.getPrice()}">-->
-                <!--            <input type="hidden" name="bookInStock" th:value="*{book.getInStock()}">-->
-                <input type="hidden" name="userRole" th:value="*{user.getPrivilege()}">
                 <input type="hidden" name="userRoleId" th:value="*{user.getPrivilege().id}">
-                <!--            <input type="text" name="book" th:value="*{book.id}">-->
                 <input type="submit" value="Update" class="btn btn-success">
             </td>
         </form>
@@ -91,7 +72,7 @@
     </tbody>
 </table>
 <div class="d-grid gap-2 col-6 mx-auto">
-    <a type="button" class="btn btn-success" th:href="@{/addUser}" style="margin-right: 40%; margin-left: 40%">Add
+    <a type="button" class="btn btn-success" th:href="@{/admin/addUser}" style="margin-right: 40%; margin-left: 40%">Add
         User</a>
 </div>
 </body>

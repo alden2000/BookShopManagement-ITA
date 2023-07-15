@@ -63,5 +63,13 @@ public class Privilege {
     public String toString() {
         return id + "i" + name;
     }
+    public void switchPrivilege(){
+        Long id = getId();
+        if (getId()==0){
+            id= 1L;
+        }else if (getId()==1){
+            id= 0L;
+        }
+    }
 }
 

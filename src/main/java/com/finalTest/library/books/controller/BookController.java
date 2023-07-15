@@ -11,6 +11,7 @@ import com.finalTest.library.states.entity.State;
 import com.finalTest.library.states.entity.StateRepository;
 import com.finalTest.library.states.service.StateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -39,14 +40,16 @@ public class BookController {
     @Autowired
     StateService stateService;
 
-    @GetMapping("/addRemoveBook")
-    public String addRemoveBook(Model model){
+    @GetMapping("/admin/addRemoveBook")
+    public String addRemoveBook(Model model, Model genreModel){
         List<Book> books = bookService.getAllBooks();
         model.addAttribute("book", books);
+        List<Genre> genreList = genreService.getAllGenres();
+        model.addAttribute("genre", genreList);
         return "addRemoveBook";
     }
 
-    @GetMapping("/addBook")
+    @GetMapping("/admin/addBook")
         public String addBook(Model model, Model languageModel, Model genreModel, Model stateModel) {
         Book book = new Book();
         List<Language> languages = languageService.getAllLanguages();
@@ -61,22 +64,14 @@ public class BookController {
         return "addBook";
     }
 
-    @PostMapping("/saveBook")
+    @PostMapping("/admin/saveBook")
     public String saveBook(@ModelAttribute("book") Book book){
         bookService.saveBook(book);
-        return "redirect:/addRemoveBook";
+        return "redirect:/admin/addRemoveBook";
     }
 
-//    @GetMapping("/removeBook")
-//    public String removeBook(Model model){
-//        List<Book> books = bookSercice.getAllBooks();
-//        model.addAttribute("book", books);
-//        return "removeBook";
-//    }
-
-    @GetMapping("/updateBook")
-    public String updateBook(//@ModelAttribute(value = "bookId") Long bookId,
-                             @ModelAttribute(value = "stateId") Long stateId,
+    @GetMapping("/admin/updateBook")
+    public String updateBook(@ModelAttribute(value = "stateId") Long stateId,
                              @ModelAttribute(value = "bookPrimaryTitle") String bookPrimaryTitle,
                              @ModelAttribute(value = "bookTitle") String bookTitle,
                              @ModelAttribute(value = "bookAuthor") String bookAuthor,
@@ -89,7 +84,6 @@ public class BookController {
         String[] arrayOfString = bookState.split("i");
         state.setName(arrayOfString[0]);
         state.setId((long) Integer.parseInt(arrayOfString[1]));
-        //book.setId(bookId);
         book.setAuthor(bookAuthor);
         book.setTitle(bookTitle);
         book.setPrice(bookPrice);
@@ -98,7 +92,7 @@ public class BookController {
         book.setState(state);
 
         bookRepository.save(book);
-        return "redirect:/addRemoveBook";
+        return "redirect:/admin/addRemoveBook";
     }
     @GetMapping("/books")
     public String loadBooks(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "3") int pageSize, Model model) {
@@ -123,5 +117,15 @@ public class BookController {
             bookRepository.save(book);
         }
         return "redirect:/books";
+    }
+    @GetMapping("/admin/advanced")
+    public String advanced(Model modelLanguage, Model modenGenre, Model modelState){
+        Language language = new Language();
+        Genre genre = new Genre();
+        State state = new State();
+        modelLanguage.addAttribute("language", language);
+        modenGenre.addAttribute("genre", genre);
+        modelState.addAttribute("state", state);
+        return "advanced";
     }
 }

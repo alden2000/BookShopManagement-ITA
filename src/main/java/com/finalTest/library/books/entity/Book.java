@@ -6,9 +6,11 @@ import com.finalTest.library.states.entity.State;
 import net.bytebuddy.asm.Advice;
 import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 import net.bytebuddy.implementation.bind.annotation.AllArguments;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,7 +27,7 @@ public class Book {
     private String primaryTitle;
     @Basic(optional = false)
     private String title;
-    @Basic(optional = false)
+
     private Integer yearOfRelease;
     //@Basic(optional = false)
     @Column(nullable = false)

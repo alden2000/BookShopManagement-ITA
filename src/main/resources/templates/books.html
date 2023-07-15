@@ -11,7 +11,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" th::href="@{/}">BookShop</a>
+        <a class="navbar-brand" th:href="@{/}">BookShop</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -23,12 +23,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">About us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/addRemoveBook}">Add/remove Books</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/addRemoveUser}">Add/remove Users</a>
                 </li>
             </ul>
 
@@ -42,23 +36,31 @@
     <thead>
     <tr class="table-info">
         <th>Img</th>
-        <th>Primary title</th>
         <th>Title</th>
+        <th>Language</th>
         <th>Author</th>
-        <th>Price</th>
-        <th>In stock</th>
+        <th>State</th>
+        <th>Price($) and number in stock</th>
+        <th>Genre</th>
         <th>Action</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="book:${book}">
-        <td style="width: 150px" class="table-info" ><img th:src="*{book.getImgUrl()}" alt="@{upss}" width="100" height="130"></td>
-        <td class="table-info" th:text="*{book.getPrimaryTitle()}"
-            style="text-align: center; vertical-align: middle"></td>
-        <td class="table-info" th:text="*{book.getTitle()}" style="text-align: center; vertical-align: middle"></td>
+        <td style="width: 150px" class="table-info" ><img th:src="*{book.getImgUrl()}" alt="upss" width="100" height="130"></td>
+        <td class="table-info"
+            style="text-align: center; vertical-align: middle">
+            <p th:text="*{book.getPrimaryTitle()}"></p><br>
+            <p th:text="*{book.getTitle()}"></p>
+        </td>
+        <td class="table-info" th:each="language:${book.getLanguageList()}" th:text="*{language.getName()}" style="text-align: center; vertical-align: middle"></td>
         <td class="table-info" th:text="*{book.getAuthor()}" style="text-align: center; vertical-align: middle"></td>
-        <td class="table-info" th:text="*{book.getPrice()}" style="text-align: center; vertical-align: middle"></td>
-            <td class="table-info" th:text="*{book.getInStock()}" id="stock" style="text-align: center; vertical-align: middle"></td>
+        <td class="table-info" th:text="*{book.getState().getName()}" style="text-align: center; vertical-align: middle"></td>
+            <td class="table-info"  id="stock" style="text-align: center; vertical-align: middle">
+                <p th:text="*{book.getPrice()}">$</p>
+                <p th:text="*{book.getInStock()}"></p>
+            </td>
+        <td class="table-info" th:each="genre:${book.getGenreList()}" th:text="*{genre.getName()}" style="text-align: center; vertical-align: middle"></td>
             <td style="vertical-align: middle" class="table-info" >
                 <form th:action="@{/updateInStock}" method="get">
                 <input type="hidden" name="bookId" th:value="*{book.getId()}">

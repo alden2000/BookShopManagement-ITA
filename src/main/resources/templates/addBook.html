@@ -10,7 +10,7 @@
 </head>
 <body>
 <div style="margin-left: 35%; margin-right: 35%">
-<form th:action="@{/saveBook}" th:object="${book}" method="post">
+<form th:action="@{/admin/saveBook}" th:object="${book}" method="post">
   <div class="mb-3 mt-3">
     <label for="primaryTitle" class="form-label">Title:</label>
     <input type="text" class="form-control" id="primaryTitle" placeholder="Enter primary title" name="primaryTitle" th:field="*{primaryTitle}">
