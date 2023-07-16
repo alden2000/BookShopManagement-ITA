@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.final</groupId>
-	<artifactId>library</artifactId>
+	<artifactId>bookShop</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>library</name>
 	<description>Spring Boot DevTools, Spring Web, Spring Security , Thymeleaf,  MySQL Driver</description>
