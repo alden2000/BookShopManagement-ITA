@@ -90,6 +90,7 @@
             style="text-align: center; vertical-align: middle">
             <p th:text="*{book.getPrimaryTitle()}"></p><br>
             <p th:text="*{book.getTitle()}"></p>
+            <p th:text="*{book.getYearOfRelease()}"></p>
         </td>
         <td class="info" th:each="language:${book.getLanguageList()}" th:text="*{language.getName()}" style="text-align: center; vertical-align: middle"></td>
         <td class="info" th:text="*{book.getAuthor()}" style="text-align: center; vertical-align: middle"></td>

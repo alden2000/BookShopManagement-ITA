@@ -7,6 +7,8 @@ import com.finalTest.BookShop.genres.entity.Genre;
 import com.finalTest.BookShop.genres.service.GenreService;
 import com.finalTest.BookShop.languages.entity.Language;
 import com.finalTest.BookShop.languages.service.LanguageService;
+import com.finalTest.BookShop.purchases.entity.Purchase;
+import com.finalTest.BookShop.purchases.entity.PurchaseRepository;
 import com.finalTest.BookShop.states.entity.State;
 import com.finalTest.BookShop.states.entity.StateRepository;
 import com.finalTest.BookShop.states.service.StateService;
@@ -19,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -38,9 +41,11 @@ public class BookController {
     LanguageService languageService;
     @Autowired
     StateService stateService;
+    @Autowired
+    PurchaseRepository purchaseRepository;
 
     @GetMapping("/admin/addRemoveBook")
-    public String addRemoveBook(Model model, Model genreModel){
+    public String addRemoveBook(Model model){
         List<Book> books = bookService.getAllBooks();
         model.addAttribute("book", books);
         List<Genre> genreList = genreService.getAllGenres();
@@ -109,21 +114,26 @@ public class BookController {
 
     @GetMapping("/updateInStock")
     public String updateInStock(@ModelAttribute(value = "InStock") Integer inStock,
-                              @ModelAttribute(value = "bookId") Long bookId){
+                                @ModelAttribute(value = "bookId") Long bookId){
+        //List<Book> bookList = bookService.getAllBooks();
         Book book = bookRepository.getReferenceById(bookId);
         book.setInStock(inStock-1);
         if (book.getInStock() != -1) {
+            Purchase purchase= new Purchase();
+            purchase.setBook(bookId);
+            purchase.setDate(LocalDate.now());
+            purchaseRepository.save(purchase);
             bookRepository.save(book);
         }
         return "redirect:/books";
     }
     @GetMapping("/admin/advanced")
-    public String advanced(Model modelLanguage, Model modenGenre, Model modelState){
+    public String advanced(Model modelLanguage, Model modelGenre, Model modelState){
         Language language = new Language();
         Genre genre = new Genre();
         State state = new State();
         modelLanguage.addAttribute("language", language);
-        modenGenre.addAttribute("genre", genre);
+        modelGenre.addAttribute("genre", genre);
         modelState.addAttribute("state", state);
         return "advanced";
     }
