@@ -104,7 +104,10 @@ public class UserController {
             String plainPassword = user.getPassword();
             String hashedPassword = bCryptPasswordEncoder.encode(plainPassword);
             user.setPassword(hashedPassword);
-            user.setPrivilege(privilegeService.getPrivilegeByName("ADMIN"));
+            List<User> userList = userService.getAllUsers();
+            for (User user1 : userList) {
+                if (user1.getUsername().equals(user.getUsername())) return "redirect:/admin/addUser?error=Username already exists";
+            }
             userService.saveUser(user);
             return "redirect:/admin/addRemoveUser";
         } catch (Exception e) {
